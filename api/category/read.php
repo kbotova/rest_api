@@ -30,7 +30,7 @@ if ($num > 0) {
 
         $cat_item = array(
             'id' => $id,
-            'name' => $name
+            'category' => $category
         );
 
         //Push to "data"
@@ -42,5 +42,5 @@ if ($num > 0) {
 
 } else {
     //No categories
-    echo json_encode(array('message' => 'No categories found'));
+    echo json_encode(array('message' => 'categoryId Not Found'));
 }
