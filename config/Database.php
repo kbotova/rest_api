@@ -16,7 +16,7 @@ class Database {
         private $dbparts = parse_url($this->url);
 
         //DB parameters
-        $hostname = $dbparts['host'];
+        $host = $dbparts['host'];
         $username = $dbparts['user'];
         $password = $dbparts['pass'];
         $db_name = ltrim($dbparts['path'],'/');
