@@ -6,24 +6,19 @@ header('Content-Type: application/json');
 include_once '../../config/Database.php';
 include_once '../../models/Author.php';
 
-
 $database = new Database();
 $db = $database->connect();
 
-
 $author = new Author($db);
-
 
 $result = $author->read();
 
 $num = $result->rowCount();
 
-
 if($num > 0) {
     // make an array of the quotes
     $author_arr = array();
-    $author_arr = array();
-
+    
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
 

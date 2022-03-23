@@ -20,10 +20,10 @@ $category = new Category($db);
 $data = json_decode(file_get_contents("php://input"));
 
 $category->id = $data->id;
-$category->category = $data->category;
+$post->category = $data->category;
 
 //Create post
-if ($category->create()) {
+if ($post->create()) {
     echo json_encode(array('message' => 'Category created'));
 } else {
     echo json_encode(array('message' => 'Category not created'));

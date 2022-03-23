@@ -15,7 +15,7 @@ if(isset($isAnId) && $method == 'GET') {
 }
 
 else if ($method == 'GET') {
-    include('./categories.php');
+    include('./category.php');
 }
 
 else if ($method == 'POST') {

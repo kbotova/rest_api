@@ -25,10 +25,8 @@ class Quote {
                 c.category
             FROM 
                 ' . $this->table . ' q
-                LEFT JOIN authors a 
-                ON q.authorId = a.id
-                LEFT JOIN category c
-                ON q.categoryId = c.id';
+                LEFT JOIN author a ON q.authorId = a.id
+                LEFT JOIN category c ON q.categoryId = c.id';
 
         //Prepare statement
         $stmt = $this->conn->prepare($query);
@@ -39,7 +37,7 @@ class Quote {
         return $stmt;
     }
 
-    //Delete post
+    //Delete quote
     public function delete() {
         //Create query
         $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
@@ -66,34 +64,29 @@ class Quote {
 
     //To read a single quote
     public function read_single() {
-    $query = 'SELECT
-    q.id,
-    q.quote,
-    a.author,
-    c.category
-    From
-    ' . $this->table . ' q
-    LEFT JOIN authors a 
-    ON
-    q.authorId = a.id
-    LEFT JOIN category c
-    ON
-    q.categoryId = c.id
-    WHERE 
-    q.id = :id';
+        //Create query
+        $query = 'SELECT
+                q.id,
+                q.quote,
+                a.author,
+                c.category
+            FROM
+                ' . $this->table . ' q
+                LEFT JOIN author a ON q.authorId = a.id
+                LEFT JOIN category c ON q.categoryId = c.id
+            WHERE q.id = :id';
 
     //Prepare the statment
     $stmt = $this->conn->prepare($query);
 
+    //Bind data
     $stmt->bindParam(':id', $this->id);
 
     //Execute query
     $stmt->execute();
-
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Set Properties
-
     $this->id = $row['id'];
     $this->quote = $row['quote'];
     $this->author = $row['author'];
