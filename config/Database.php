@@ -13,13 +13,13 @@ class Database {
     //DB connect
     public function connect() {
 
-        private $dbparts = parse_url($url);
+        private $dbparts = parse_url($this->url);
 
         //DB parameters
-        private $hostname = $dbparts['host'];
-        private $username = $dbparts['user'];
-        private $password = $dbparts['pass'];
-        private $db_name = ltrim($dbparts['path'],'/');
+        $hostname = $dbparts['host'];
+        $username = $dbparts['user'];
+        $password = $dbparts['pass'];
+        $db_name = ltrim($dbparts['path'],'/');
 
         try {
             $this->conn = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db_name, $this->username, $this->password);
