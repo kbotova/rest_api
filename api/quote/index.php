@@ -1,53 +1,48 @@
 <?php 
-    
+    //Headers
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
+
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method === 'OPTIONS') {
         header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
         header('Access-Control-Allow-Headers: Origin, Accept, Content-Type, X-Requested-With');
     }
 
-    $isAnId = filter_input(INPUT_GET, "id");
-    $isAnAuthorId = filter_input(INPUT_GET, "authorId");
-    $isAnCategoryId = filter_input(INPUT_GET, "categoryId");
+    $isId = filter_input(INPUT_GET, "id");
+    $isAuthorId = filter_input(INPUT_GET, "authorId");
+    $isCategoryId = filter_input(INPUT_GET, "categoryId");
     
-
-   if(!empty($isAnId) && $method == 'GET') {
-     
-    include('./quotes_read_single.php');
+   if(!empty($isId) && $method == 'GET') {
+       include('./read_single.php');
     }
 
-    else if (!empty($isAnCategoryId) && !empty($isAnAuthorId) && $method == 'GET') {
-        include('./quoteByCategoryIdAndAuthorId.php');
+    else if (!empty($isCategoryId) && !empty($isAuthorId) && $method == 'GET') {
+        include('./categoryIdAndAuthorId.php');
     }
 
-    else if (!empty($isAnAuthorId) && $method == 'GET') {
+    else if (!empty($isAuthorId) && $method == 'GET') {
         
-        include('./quoteByAuthorID.php');
+        include('./authorID.php');
     }
 
-    else if (!empty($isAnCategoryId) && $method == 'GET') {
+    else if (!empty($isCategoryId) && $method == 'GET') {
       
-        include('./quoteByCategoryId.php');
+        include('./categoryId.php');
     }
 
     else if ($method == 'POST') {
-        include('./createQuote.php');
+        include('./create.php');
     }
 
     else if ($method == 'PUT') {
-        include('./updateQuote.php');
+        include('./update.php');
     }
 
     else if ($method == 'DELETE') {
-        include('./deleteQuote.php');
+        include('./delete.php');
     }
-
     
-
-else if($method == 'GET') {
-    include('./quotes.php');
-} 
-
-
+    else if($method == 'GET') {
+        include('./quotes.php');
+}

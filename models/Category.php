@@ -56,89 +56,84 @@ class Category {
         return false;
     }
 
+    //Get category
     public function read_single() {
+        //Create query
         $query = 'SELECT
-        id,
-        category
-        
-        FROM 
-        ' . $this->table . '
-        WHERE
-        id = ?
-        LIMIT 0,1';
+                id,
+                category
+            FROM 
+                ' . $this->table . '
+            WHERE id = ? LIMIT 0,1';
 
+        //Prepare statement
         $stmt = $this->conn->prepare($query);
 
+        //Bind data
         $stmt->bindParam(1, $this->id);
     
-        // execute query
-    
+        //Execute query
         $stmt->execute();
-    
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
     
-
         $this->id = $row['id'];
-        $this->category = $row['category'];
-        
+        $this->category = $row['category'];    
     }
-    // end of single category model
 
-
-    // Start of create new category
+    //Create a category
     public function create() {
+        //Create query
         $query = 'INSERT INTO ' . $this->table . '
-        SET
-        id = :id,
-        category = :category';
-        // above uses named parameters
+            SET
+                id = :id,
+                category = :category';
     
-        // prepare 
+        //Prepare statement
         $stmt = $this->conn->prepare($query);
     
+        //Clean data
         $this->id = htmlspecialchars(strip_tags($this->id));
         $this->category = htmlspecialchars(strip_tags($this->category));
     
+        //Bind data
         $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':category', $this->category);
       
-        
-       if($stmt->execute()) {
-        
-          
+        //Execute query
+        if ($stmt->execute()) {
             return true;
         }
     
         printf("Error: %s. \n", $stmt->error);
         return false;
-        }
+    }
 
-
-        // --------------------------
-    // Start of update new category
+    //Update a category
     public function update() {
+        //Create query
         $query = 'UPDATE ' . $this->table . '
-        SET
-        id = :id,
-        category = :category
-        WHERE id = :id';
-        // above uses named parameters
+            SET
+                id = :id,
+                category = :category
+            WHERE id = :id';
     
-        // prepare 
+        //Prepare statement
         $stmt = $this->conn->prepare($query);
     
+        //Clean data
         $this->id = htmlspecialchars(strip_tags($this->id));
         $this->category = htmlspecialchars(strip_tags($this->category));
     
+        //Bind data
         $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':category', $this->category);
     
-        if($stmt->execute()) {
+        //Execute query
+        if ($stmt->execute()) {
             return true;
         } 
     
         printf("Error: %s. \n", $stmt->error);
         return false;
-        }
-
+    }
 }

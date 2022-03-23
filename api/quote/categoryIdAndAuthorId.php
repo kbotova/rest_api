@@ -1,5 +1,5 @@
 <?php
-
+//Headers
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: GET');
@@ -10,11 +10,11 @@ include_once '../../models/Quote.php';
 include_once '../../models/Author.php';
 include_once '../../models/Category.php';
 
-
+//Instantiate DB and connect
 $database = new Database();
 $db = $database->connect();
 
-
+//Instantiate quote object
 $quote = new Quote($db);
 
 $quote->categoryId = isset($_GET['categoryId']) ? $_GET['categoryId'] : die();
@@ -24,31 +24,14 @@ $result = $quote->getQuotesByAuthorIdAndCategoryId();
 
 $num = $result->rowCount();
 
-
- if($num > 0) {
+if ($num > 0) {
     $quote_arr = array();
-    $quote_arr = array();
-
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
-
-        $quote_item = array( 
-            
-            'id' => $id,
-            'quote' => html_entity_decode($quote),
-            'author' => $author,
-            'category' => $category
-       
-            
-           
-        );
-
-        array_push($quote_arr, $quote_item);
- }
-print_r(json_encode($quote_arr));
-
+        $quotes = array('id' => $id, 'quote' => html_entity_decode($quote), 'author' => $author, 'category' => $category);
+        array_push($quote_arr, $quotes);
+    }
+    print_r(json_encode($quote_arr));
 } else {
-    echo json_encode(
-        array('message' => 'No quotes found')
-    );
+    echo json_encode(array('message' => 'No Quotes Found'));
 }
