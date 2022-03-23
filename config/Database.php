@@ -1,10 +1,18 @@
 <?php
+
+public function __construct($db) {
+    $this->conn = $db;
+}
+
 class Database {
+    $url = getenv('JAWSDB_URL');
+    $dbparts = parse_url($url);
+    
     //DB parameters
-    private $host = 'acw2033ndw0at1t7.cbetxkdyhwsb.us-east-1.rds.amazonaws.com';
-    private $db_name = 'nm8bk6vx852vqp0n';
-    private $username = 'un73uk3dlift9yfo';
-    private $password = 'bp5o6is37bdtn1ut';
+    private $host = $dbparts['host'];
+    private $db_name = ltrim($dbparts['path'],'/');
+    private $username = $dbparts['user'];
+    private $password = $dbparts['pass'];
     private $conn;
 
     //DB connect
