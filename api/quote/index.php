@@ -13,36 +13,36 @@
     $isAuthorId = filter_input(INPUT_GET, "authorId");
     $isCategoryId = filter_input(INPUT_GET, "categoryId");
     
-   if(!empty($isId) && $method == 'GET') {
+   if(!empty($isId) && $crud == 'GET') {
        include('./read_single.php');
     }
 
-    else if (!empty($isCategoryId) && !empty($isAuthorId) && $method == 'GET') {
+    else if (!empty($isCategoryId) && !empty($isAuthorId) && $crud == 'GET') {
         include('./categoryIdAndAuthorId.php');
     }
 
-    else if (!empty($isAuthorId) && $method == 'GET') {
+    else if (!empty($isAuthorId) && $crud == 'GET') {
         
-        include('./authorID.php');
+        include('./authorId.php');
     }
 
-    else if (!empty($isCategoryId) && $method == 'GET') {
+    else if (!empty($isCategoryId) && $crud == 'GET') {
       
         include('./categoryId.php');
     }
 
-    else if ($method == 'POST') {
+    else if ($crud == 'POST') {
         include('./create.php');
     }
 
-    else if ($method == 'PUT') {
+    else if ($crud == 'PUT') {
         include('./update.php');
     }
 
-    else if ($method == 'DELETE') {
+    else if ($crud == 'DELETE') {
         include('./delete.php');
     }
     
-    else if($method == 'GET') {
+    else if($crud == 'GET') {
         include('./quotes.php');
 }

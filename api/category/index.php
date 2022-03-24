@@ -3,31 +3,31 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-$method = $_SERVER['REQUEST_METHOD'];
-if ($method === 'OPTIONS') {
+$crud = $_SERVER['REQUEST_METHOD'];
+if ($crud === 'OPTIONS') {
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
     header('Access-Control-Allow-Headers: Origin, Accept, Content-Type, X-Requested-With');
 }
 
 $isId = filter_input(INPUT_GET, "id");
 
-if(isset($isId) && $method == 'GET') {
+if(isset($isId) && $crud == 'GET') {
     include('./read_single.php');
 }
 
-else if ($method == 'GET') {
+else if ($crud == 'GET') {
     include('./category.php');
 }
 
-else if ($method == 'POST') {
+else if ($crud == 'POST') {
     include('./create.php');
 } 
 
-else if ($method == 'PUT') {
+else if ($crud == 'PUT') {
     include('./update.php');
 }
 
-else if ($method == 'DELETE') {
+else if ($crud == 'DELETE') {
     include('./delete.php');
 }
 
